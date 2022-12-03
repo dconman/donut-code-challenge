@@ -33,12 +33,12 @@ module Donut
     #
     ###
     post '/interactions' do
-      payload = JSON.parse(params[:payload], symbolize_names: true)
-      Donut::App.logger.info "\n[+] Interaction type #{payload[:type]} recieved."
+      payload = JSON.parse(params[:payload])
+      Donut::App.logger.info "\n[+] Interaction type #{payload['type']} recieved."
       Donut::App.logger.info "\n[+] Payload:\n#{JSON.pretty_generate(payload)}"
 
       client = Slack::Web::Client.new
-      user_id = payload[:user][:id]
+      user_id = payload['user']['id']
       channel_id = client.conversations_open(users: user_id).channel.id
       client.chat_postMessage(channel: channel_id, text: "Hello, <@#{user_id}>!")
 
