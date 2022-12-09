@@ -1,0 +1,36 @@
+[
+    {
+        "type": "context",
+        "elements": [
+            {
+                "type": "mrkdwn",
+                "text": ":clipboard: <@<%= assigner_user_id %>> has assigned you the following:"
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "block_id": "<%= Tasks::TASK_DESCRIPTION_BLOCK_ID %>",
+        "text": {
+            "type": "plain_text",
+            "text": "<%= task_description %>",
+            "emoji": true
+        }
+    },
+    {
+        "type": "actions",
+        "elements": [
+            {
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": ":white_check_mark: Complete",
+                    "emoji": true
+                },
+                "style": "primary",
+                "value": "<%= assigner_user_id %>",
+                "action_id": "<%= Tasks::COMPLETE_TASK_ACTION_ID %>"
+            }
+        ]
+    }
+]

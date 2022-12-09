@@ -1,0 +1,19 @@
+[
+    {
+        "type": "context",
+        "elements": [
+            {
+                "type": "mrkdwn",
+                "text": ":tada: <@<%= assignee_user_id %>> has completed the following task:"
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "text": {
+            "type": "plain_text",
+            "text": "<%= task_description %>",
+            "emoji": true
+        }
+    }
+]

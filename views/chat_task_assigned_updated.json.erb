@@ -1,0 +1,28 @@
+[
+    {
+        "type": "context",
+        "elements": [
+            {
+                "type": "plain_text",
+                "text": ":white_check_mark: Nice! You've completed the following:"
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "text": {
+            "type": "plain_text",
+            "text": "<%= task_description %>",
+            "emoji": true
+        }
+    },
+    {
+        "type": "context",
+        "elements": [
+            {
+                "type": "mrkdwn",
+                "text": "We'll let <@<%= assigner_user_id %>> know!"
+            }
+        ]
+    }
+]

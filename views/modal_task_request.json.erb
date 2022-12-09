@@ -1,0 +1,55 @@
+{
+    "type": "modal",
+    "title": {
+        "type": "plain_text",
+        "text": "Assign A Task"
+    },
+    "submit": {
+        "type": "plain_text",
+        "text": "Assign"
+    },
+    "close": {
+        "type": "plain_text",
+        "text": "Never mind"
+    },
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Here you can assign a task to another user."
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "<%= Tasks::ASSIGNEE_BLOCK_ID %>",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Who do you want to assign this task to?"
+            },
+            "accessory": {
+                "type": "users_select",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Select a user",
+                    "emoji": true
+                },
+                "action_id": "<%= Tasks::ASSIGNEE_ACTION_ID %>"
+            }
+        },
+        {
+            "type": "input",
+            "block_id": "<%= Tasks::TASK_DESCRIPTION_BLOCK_ID %>",
+            "element": {
+                "type": "plain_text_input",
+                "multiline": true,
+                "action_id": "<%= Tasks::TASK_DESCRIPTION_ACTION_ID %>"
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "Task Description",
+                "emoji": true
+            }
+        }
+    ]
+}
