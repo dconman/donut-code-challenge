@@ -4,7 +4,7 @@
         "elements": [
             {
                 "type": "mrkdwn",
-                "text": ":tada: <@<%= assignee_user_id %>> has completed the following task:"
+                "text": <%= ":tada: <@<#{assignee_user_id}> has completed the following task:".to_json %>
             }
         ]
     },
@@ -12,7 +12,7 @@
         "type": "section",
         "text": {
             "type": "plain_text",
-            "text": "<%= task_description %>",
+            "text": <%= task_description.to_json %>,
             "emoji": true
         }
     }

@@ -12,7 +12,7 @@
         "type": "section",
         "text": {
             "type": "plain_text",
-            "text": "<%= task_description %>",
+            "text": <%= task_description.to_json %>,
             "emoji": true
         }
     },
@@ -21,7 +21,7 @@
         "elements": [
             {
                 "type": "mrkdwn",
-                "text": "We'll let <@<%= assigner_user_id %>> know!"
+                "text": <%= "We'll let <@#{assigner_user_id}> know!".to_json %>
             }
         ]
     }

@@ -4,7 +4,7 @@
         "elements": [
             {
                 "type": "mrkdwn",
-                "text": ":clipboard: <@<%= assigner_user_id %>> has assigned you the following:"
+                "text": <%= ":clipboard: <@#{assigner_user_id}> has assigned you the following:".to_json %>
             }
         ]
     },
@@ -13,7 +13,7 @@
         "block_id": "<%= Tasks::TASK_DESCRIPTION_BLOCK_ID %>",
         "text": {
             "type": "plain_text",
-            "text": "<%= task_description %>",
+            "text": <%= task_description.to_json %>,
             "emoji": true
         }
     },
@@ -28,7 +28,7 @@
                     "emoji": true
                 },
                 "style": "primary",
-                "value": "<%= assigner_user_id %>",
+                "value": <%= assigner_user_id.to_json %>,
                 "action_id": "<%= Tasks::COMPLETE_TASK_ACTION_ID %>"
             }
         ]

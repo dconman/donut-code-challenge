@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'erb'
-
 class Tasks
   TASK_DESCRIPTION_BLOCK_ID = 'task_description_block'
   TASK_DESCRIPTION_ACTION_ID = 'task_description_action'
@@ -50,7 +48,8 @@ class Tasks
     assigner_user_id = payload.dig('user', 'id')
     task_description = payload.dig(*PATH_TO_TASK_DESCRIPTION)
     assignee_user_id = payload.dig(*PATH_TO_ASSIGNEE)
-    #check user existance?
+    # TODO: check if user id valid?
+    # TODO: different message if assigner == assignee (applies to all methods)
     message = erb(:'chat_task_assigned.json', locals: {task_description: task_description, assigner_user_id: assigner_user_id})
     slack_client.chat_postMessage(channel: assignee_user_id, blocks: message, text: task_assigned_fallback_text(assigner_user_id))
     # if self, do different
@@ -78,7 +77,7 @@ class Tasks
     return unless completion
     assigner_user_id = completion['value']
     task_description = get_task_description_from_blocks(payload)
-    #check user id?
+    # TODO: check if user id valid?
     message_ts = payload.dig('message', 'ts')
     assignee_completion_message = erb(:'chat_task_assigned_updated.json', locals: {assigner_user_id: assigner_user_id, task_description: task_description})
     slack_client.chat_update(channel: payload.dig('channel', 'id'), ts: message_ts, blocks: assignee_completion_message, text: task_assigned_fallback_text(assigner_user_id))
@@ -87,7 +86,4 @@ class Tasks
     slack_client.chat_postMessage(channel: assigner_user_id, blocks: assigner_completion_message, text: task_completed_fallback_text(assignee_user_id))
   end
 
-  def handle_error
-    # ephimeral response?
-  end
 end
