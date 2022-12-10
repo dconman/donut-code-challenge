@@ -39,9 +39,6 @@ module Donut
     #
     ###
     post '/interactions' do
-      # TODO: respond immediately and perform operations async
-      # TODO: ^ would require handling errors with something like ephimeral messages
-      # TODO: which is probably beter anyway
       payload = JSON.parse(params[:payload])
       Donut::App.logger.info "\n[+] Interaction type #{payload['type']} recieved."
       Donut::App.logger.info "\n[+] Payload:\n#{JSON.pretty_generate(payload)}"
