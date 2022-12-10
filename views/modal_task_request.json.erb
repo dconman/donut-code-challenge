@@ -22,7 +22,7 @@
         },
         {
             "type": "section",
-            "block_id": "<%= Tasks::ASSIGNEE_BLOCK_ID %>",
+            "block_id": "<%= TaskAssignment::ASSIGNEE_BLOCK_ID %>",
             "text": {
                 "type": "mrkdwn",
                 "text": "Who do you want to assign this task to?"
@@ -34,16 +34,16 @@
                     "text": "Select a user",
                     "emoji": true
                 },
-                "action_id": "<%= Tasks::ASSIGNEE_ACTION_ID %>"
+                "action_id": "<%= TaskAssignment::ASSIGNEE_ACTION_ID %>"
             }
         },
         {
             "type": "input",
-            "block_id": "<%= Tasks::TASK_DESCRIPTION_BLOCK_ID %>",
+            "block_id": "<%= TaskAssignment::TASK_DESCRIPTION_BLOCK_ID %>",
             "element": {
                 "type": "plain_text_input",
                 "multiline": true,
-                "action_id": "<%= Tasks::TASK_DESCRIPTION_ACTION_ID %>"
+                "action_id": "<%= TaskAssignment::TASK_DESCRIPTION_ACTION_ID %>"
             },
             "label": {
                 "type": "plain_text",

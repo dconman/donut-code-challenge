@@ -10,7 +10,7 @@
     },
     {
         "type": "section",
-        "block_id": "<%= Tasks::TASK_DESCRIPTION_BLOCK_ID %>",
+        "block_id": "<%= TaskAssignment::TASK_DESCRIPTION_BLOCK_ID %>",
         "text": {
             "type": "plain_text",
             "text": <%= task_description.to_json %>,
@@ -29,7 +29,7 @@
                 },
                 "style": "primary",
                 "value": <%= assigner_user_id.to_json %>,
-                "action_id": "<%= Tasks::COMPLETE_TASK_ACTION_ID %>"
+                "action_id": "<%= TaskAssignment::COMPLETE_TASK_ACTION_ID %>"
             }
         ]
     }

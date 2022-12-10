@@ -4,7 +4,7 @@ require 'sinatra/reloader' if settings.development?
 require 'dotenv/load' if settings.development?
 require 'logger'
 require 'slack'
-require './lib/tasks.rb'
+require './lib/task_assignment.rb'
 
 Slack.configure do |config|
   config.token = ENV['SLACK_BOT_TOKEN']
@@ -25,7 +25,7 @@ module Donut
 
     configure :development, :production do
       register Sinatra::Reloader
-      also_reload './lib/tasks.rb'
+      also_reload './lib/task_assignment.rb'
       set :logger, Donut::App.logger
 
       after_reload do
@@ -44,7 +44,7 @@ module Donut
       Donut::App.logger.info "\n[+] Payload:\n#{JSON.pretty_generate(payload)}"
 
       client = Slack::Web::Client.new
-      Tasks.new(client, logger: Donut::App.logger, &method(:erb)).handle_request(payload)
+      TaskAssignment.new(client, logger: Donut::App.logger, &method(:erb)).handle_request(payload)
       200
     rescue => e
       Donut::App.logger.error(e.full_message(highlight: false, order: :top))

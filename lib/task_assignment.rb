@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Tasks
+class TaskAssignment
   TASK_DESCRIPTION_BLOCK_ID = 'task_description_block'
   TASK_DESCRIPTION_ACTION_ID = 'task_description_action'
   PATH_TO_TASK_DESCRIPTION = %W[view state values #{TASK_DESCRIPTION_BLOCK_ID} #{TASK_DESCRIPTION_ACTION_ID} value].freeze
@@ -18,11 +18,11 @@ class Tasks
   def handle_request(payload)
     case payload['type']
     when 'shortcut'
-      task_requested(payload)
+      show_assign_task_modal(payload)
     when 'view_submission'
-      task_assigned(payload)
+      send_task_assigned_message(payload)
     when 'block_actions'
-      task_completed(payload)
+      send_task_completed_messages(payload)
     end
   end
 
@@ -34,7 +34,7 @@ class Tasks
     @erb_method.call(*args)
   end
 
-  def task_requested(payload)
+  def show_assign_task_modal(payload)
     trigger_id = payload['trigger_id']
     modal = erb(:'modal_task_request.json')
     slack_client.views_open(trigger_id: trigger_id, view: modal)
@@ -44,7 +44,7 @@ class Tasks
     "<@#{user_id}> has assigned you a task"
   end
 
-  def task_assigned(payload)
+  def send_task_assigned_message(payload)
     assigner_user_id = payload.dig('user', 'id')
     task_description = payload.dig(*PATH_TO_TASK_DESCRIPTION)
     assignee_user_id = payload.dig(*PATH_TO_ASSIGNEE)
@@ -67,7 +67,7 @@ class Tasks
   end
 
 
-  def task_completed(payload)
+  def send_task_completed_messages(payload)
     assignee_user_id = payload.dig('user', 'id')
     actions = payload['actions']
     completion = actions.detect { |action| action['action_id'] == COMPLETE_TASK_ACTION_ID }
